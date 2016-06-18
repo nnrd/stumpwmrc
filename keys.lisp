@@ -55,6 +55,22 @@
 (define-key *top-map* (kbd "s-w") "exec chromium")
 (define-key *top-map* (kbd "S-s-RET") "exec pcmanfm")
 
+
+(defcommand pactl-adjust-volume (step)
+  ((:number step))
+  "Adjust pulse audio volume"
+  (let ((step-value (format nil "~@D%" step)))
+  (run-shell-command (format nil "pactl set-sink-volume 0 ~A" step-value))
+  (message
+   (string-trim
+    '(#\Space #\Tab #\Newline)
+    (run-shell-command (format nil "pactl list sink-inputs | awk '/(Volume|Громкость):/ { print $1 \" \" $5 \" (\" $7 \"dB)\"}'") t)))))
+
+(defun pactl-get-sink-volume (sink)
+
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "pactl-adjust-volume 5")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "pactl-adjust-volume -5")
+
 ;; some control commands
 
 ;; (define-key *top-map* (kbd "s-Down") "run-shell-command amixer -c0 set Master 3dB-")
