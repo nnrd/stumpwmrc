@@ -1,0 +1,49 @@
+(in-package :stumpwm)
+
+(setf *bar-med-color* "^B^8")
+(setf *bar-hi-color* "^B^3")
+(setf *bar-crit-color* "^B^1")
+
+(setf *colors*
+      '("black"
+       "red"
+       "green"
+       "yellow"
+       "blue"
+       "magenta"
+       "cyan"
+       "white"
+       "GreenYellow"
+       "#009696"))
+(update-color-map (current-screen))
+
+(setf *group-format* " %t ")
+(setf *window-format* "%m%n%s%20t ")
+(setf *mode-line-timeout* 2)
+
+(setf *time-modeline-string* "%d.%m.%Y^n^B %H:%M ^b")
+
+(defun get-date-modeline ()
+  (multiple-value-bind (second minute hour date month year day-of-week dst-p tz) (get-decoded-time)
+    (format nil "~2,'0d:~2,'0d ~d.~2,'0d.~d" hour minute date month year)))
+
+;; (defun get-layout-modeline ()
+;;   (if (= 0 (get-current-layout *display*))
+;;       "^3 en ^n"
+;;       "^3^R ru ^r^n"))
+
+(setf *screen-mode-line-format*
+      (list "^B^3 %g ^n^b %W"
+            ;; "^5|"
+            ;; '(:eval (get-layout-modeline))
+            " ^5| "
+            "^n^b"
+            '(:eval (get-date-modeline))
+            ))
+
+(setf *mode-line-border-width* 0)
+(setf *mode-line-background-color* "#101010")
+(setf *mode-line-foreground-color* "DeepSkyBlue")
+
+(if (not (head-mode-line (current-head)))
+    (toggle-mode-line (current-screen) (current-head)))
