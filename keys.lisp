@@ -75,9 +75,9 @@
   ((:number step))
   "Adjust pulse audio volume"
   (let ((step-value (format nil "~@D%" step)))
-  (run-shell-command (format nil "pactl set-sink-volume 0 ~A" step-value))
-  (message
-   (run-shell-command (format nil "pactl list sink-inputs | awk '/(Volume|Громкость):/ { print $1 \" ^B^20\" $5 \"^n^50 (\" $7 \"dB)\"}'") t))))
+    (run-shell-command (format nil "pactl set-sink-volume 0 ~A" step-value))
+    (message
+     (run-shell-command (format nil "pactl list sink-inputs | awk '/(Volume|Громкость):/ { print $1 \" ^B^20\" $5 \"^n^50 (\" $7 \"dB)^n\"; exit}'") t))))
 
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "pactl-adjust-volume 5")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "pactl-adjust-volume -5")
