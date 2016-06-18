@@ -10,20 +10,19 @@
 
 (defcommand void-cmd () () nil)
 
-(define-key *top-map* (kbd "s-RET")
-  (format nil "exec ~A" *terminal*))
-
-(define-key *root-map* (kbd "RET")
-  (format nil "exec ~A" *terminal*))
-
-(define-key *top-map* (kbd "s-l") "mode-line")
-(define-key *root-map* (kbd "l") "mode-line")
+(define-key *top-map* (kbd "s-p") "exec pavucontrol")
+(define-key *top-map* (kbd "s-o") "exec qpaeq")
+(define-key *top-map* (kbd "s-RET") (format nil "exec ~A" *terminal*))
+(define-key *root-map* (kbd "s-RET") (format nil "exec ~A" *terminal*))
+(define-key *root-map* (kbd "RET") (format nil "exec ~A" *terminal*))
+(define-key *top-map* (kbd "S-s-RET") "exec pcmanfm")
+(define-key *root-map* (kbd "S-s-RET") "exec pcmanfm")
+(define-key *root-map* (kbd "S-RET") "exec pcmanfm")
 
 ;; execute apps map
 (undefine-key *root-map* (kbd "c"))
 
-(defvar *exec-map* nil)
-(setf *exec-map*
+(defvar *exec-map*
   (let ((c (make-sparse-keymap)))
     (define-key c (kbd "t") "exec konsole")
     (define-key c (kbd "b") "exec chromium")
@@ -33,8 +32,15 @@
     (define-key c (kbd "e") "exec emacs")
     (define-key c (kbd "d") "exec deadbeef")
     c))
-
 (define-key *root-map* (kbd "q") '*exec-map*)
+
+(define-key *top-map* (kbd "s-l") "mode-line")
+(define-key *root-map* (kbd "s-l") "mode-line")
+(define-key *root-map* (kbd "l") "mode-line")
+
+
+(define-key *root-map* (kbd "s") "hsplit")
+(define-key *root-map* (kbd "S") "vsplit")
 
 (define-key *top-map* (kbd "s-ESC") "delete-window")
 (define-key *top-map* (kbd "S-s-ESC") "kill-window")
@@ -49,12 +55,11 @@
 (define-key *root-map* (kbd "C-Down") "exchange-direction down")
 
 (define-key *top-map* (kbd "s-m") "only")
-
-(define-key *top-map* (kbd "s-p") "exec pavucontrol")
-(define-key *top-map* (kbd "s-o") "exec qpaeq")
-(define-key *top-map* (kbd "s-w") "exec chromium")
-(define-key *top-map* (kbd "S-s-RET") "exec pcmanfm")
-
+(define-key *root-map* (kbd "s-m") "only")
+(define-key *root-map* (kbd "m") "only")
+(define-key *root-map* (kbd "s-ESC") "remove")
+(define-key *root-map* (kbd "=") "balance-frames")
+(define-key *root-map* (kbd "s-=") "balance-frames")
 
 (defcommand pactl-adjust-volume (step)
   ((:number step))
@@ -62,11 +67,7 @@
   (let ((step-value (format nil "~@D%" step)))
   (run-shell-command (format nil "pactl set-sink-volume 0 ~A" step-value))
   (message
-   (string-trim
-    '(#\Space #\Tab #\Newline)
-    (run-shell-command (format nil "pactl list sink-inputs | awk '/(Volume|Громкость):/ { print $1 \" \" $5 \" (\" $7 \"dB)\"}'") t)))))
-
-(defun pactl-get-sink-volume (sink)
+   (run-shell-command (format nil "pactl list sink-inputs | awk '/(Volume|Громкость):/ { print $1 \" ^B^20\" $5 \"^n^50 (\" $7 \"dB)\"}'") t))))
 
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "pactl-adjust-volume 5")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "pactl-adjust-volume -5")
