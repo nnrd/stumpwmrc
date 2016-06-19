@@ -34,7 +34,6 @@
       (list "^B^3%g^n^b %W"
             ;; "^5|"
             ;; '(:eval (get-layout-modeline))
-            " ^5| "
             "^n^b^>"
             '(:eval (get-date-modeline))
             "        "
