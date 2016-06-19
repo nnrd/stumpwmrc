@@ -39,7 +39,3 @@
    "Starting swank. M-x slime-connect RET RET, then (in-package :stumpwm)."))
 
 (run-shell-command (format nil "wmsetbg ~A" *wallpaper*))
-
-(ql:quickload :xembed)
-(load-module "stumptray")
-(stumptray:stumptray)

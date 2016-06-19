@@ -35,13 +35,29 @@
             ;; "^5|"
             ;; '(:eval (get-layout-modeline))
             " ^5| "
-            "^n^b"
+            "^n^b^>"
             '(:eval (get-date-modeline))
+            "        "
             ))
 
 (setf *mode-line-border-width* 0)
 (setf *mode-line-background-color* "#101010")
 (setf *mode-line-foreground-color* "DeepSkyBlue")
+
+(ql:quickload :xembed)
+(load-module "stumptray")
+
+(defcommand tray-enable ()
+  ()
+  "Enable systray"
+  (stumptray::add-mode-line-hooks))
+
+(defcommand tray-disable ()
+  ()
+  "Disable systray"
+  (stumptray::remove-mode-line-hooks))
+
+(tray-enable)
 
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
