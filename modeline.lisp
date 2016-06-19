@@ -18,7 +18,7 @@
 (update-color-map (current-screen))
 
 (setf *group-format* " %t ")
-(setf *window-format* "%m%n%s%20t ")
+(setf *window-format* "%m%n%s%30t ")
 (setf *mode-line-timeout* 2)
 
 (defun get-date-modeline ()

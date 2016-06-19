@@ -24,6 +24,7 @@
 (load-conf-file "keys.lisp")
 (load-conf-file "groups.lisp")
 (load-conf-file "windows.lisp")
+(load-conf-file "run.lisp")
 
 (setf *mouse-focus-policy* :sloppy)
 
