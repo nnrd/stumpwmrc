@@ -23,7 +23,7 @@
 
 (defun get-date-modeline ()
   (multiple-value-bind (second minute hour date month year day-of-week dst-p tz) (get-decoded-time)
-    (format nil "~2,'0d:~2,'0d ~d.~2,'0d.~d" hour minute date month year)))
+    (format nil "~d.~2,'0d.~d ~2,'0d:~2,'0d" date month year hour minute)))
 
 ;; (defun get-layout-modeline ()
 ;;   (if (= 0 (get-current-layout *display*))
