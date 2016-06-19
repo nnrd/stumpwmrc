@@ -1,6 +1,7 @@
 (defvar *autorun-list*
   (list
    "conky"
+   "nm-applet"
    "goldendict"))
 
 (defcommand autorun ()
