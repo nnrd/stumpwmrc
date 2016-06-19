@@ -13,19 +13,19 @@
 (define-key *top-map* (kbd "s-p") "exec pavucontrol")
 (define-key *top-map* (kbd "s-o") "exec qpaeq")
 (define-key *top-map* (kbd "s-RET") (format nil "exec ~A" *terminal*))
-(define-key *root-map* (kbd "s-RET") (format nil "exec ~A" *terminal*))
-(define-key *root-map* (kbd "RET") (format nil "exec ~A" *terminal*))
+(define-key *root-map* (kbd "s-RET") "exec")
+(define-key *root-map* (kbd "RET") "exec")
 (define-key *top-map* (kbd "S-s-RET") "exec pcmanfm")
-(define-key *root-map* (kbd "S-s-RET") "exec pcmanfm")
-(define-key *root-map* (kbd "S-RET") "exec pcmanfm")
 
 ;; execute apps map
 (undefine-key *root-map* (kbd "c"))
 
 (defvar *exec-map*
   (let ((c (make-sparse-keymap)))
+    (define-key c (kbd "RET") "exec")
+    (define-key c (kbd "q") "exec")
     (define-key c (kbd "t") "exec konsole")
-    (define-key c (kbd "b") "exec chromium")
+    (define-key c (kbd "w") "exec chromium")
     (define-key c (kbd "p") "exec pavucontrol")
     (define-key c (kbd "o") "exec qpaeq")
     (define-key c (kbd "m") "exec pcmanfm")
