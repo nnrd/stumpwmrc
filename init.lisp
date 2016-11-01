@@ -13,7 +13,7 @@
 ;; (set-font (make-instance 'xft:font :family "Droid Sans Mono" :subfamily "Regular" :size 10))
 (set-font "-*-terminus-medium-r-normal-*-14-*-*-*-*-*-iso10646-1")
 
-(defvar *wallpaper* "~/Картинки/обои/aaa/1777531278467323433.jpg")0
+(defvar *wallpaper* "~/Картинки/обои/aaa/1268191627930.jpg")
 
 (defvar *confdir* "/home/nnrd/.stumpwm.d")
 (defun load-conf-file (filename)
